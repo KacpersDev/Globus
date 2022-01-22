@@ -1,0 +1,4 @@
+name: Globus
+version: '${project.version}'
+main: tech.azuriteservices.Globus
+api-version: 1.18
