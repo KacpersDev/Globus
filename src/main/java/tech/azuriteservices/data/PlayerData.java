@@ -5,11 +5,16 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+
+import java.util.Collection;
 
 public class PlayerData {
 
     private boolean onGround;
     private boolean inLiquid;
+    private boolean speedPotion;
     private int vl;
 
     public boolean isPlayerOnGround(Player player) {
@@ -37,6 +42,21 @@ public class PlayerData {
         return false;
     }
 
+    public boolean speedPotionEffect(Player player){
+
+        if (player.hasPotionEffect(PotionEffectType.SPEED)) {
+            Collection<PotionEffect> potionEffects = player.getActivePotionEffects();
+            for (PotionEffect effect : potionEffects) {
+                if (effect.getType().equals(PotionEffectType.SPEED)) {
+                    int potionAmplifier = effect.getAmplifier();
+
+                }
+            }
+        }
+
+        return speedPotion;
+    }
+
     public boolean isPlayerInLiquid(Player player){
 
         Location location = player.getLocation();
@@ -48,6 +68,7 @@ public class PlayerData {
 
         return inLiquid;
     }
+
 
     public int getVl() {
         return vl;

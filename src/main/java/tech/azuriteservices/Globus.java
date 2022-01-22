@@ -12,6 +12,7 @@ import tech.azuriteservices.check.impl.movement.fly.FlyA;
 import tech.azuriteservices.check.impl.movement.fly.FlyB;
 import tech.azuriteservices.check.impl.movement.fly.FlyC;
 import tech.azuriteservices.check.impl.movement.fly.FlyD;
+import tech.azuriteservices.check.impl.movement.speed.SpeedA;
 import tech.azuriteservices.config.ConfigData;
 
 import java.io.File;
@@ -42,6 +43,7 @@ public final class Globus extends JavaPlugin {
         PacketEvents.get().registerListener(new FlyB());
         PacketEvents.get().registerListener(new FlyC());
         PacketEvents.get().registerListener(new FlyD());
+        PacketEvents.get().registerListener(new SpeedA());
         PacketEvents.get().init();
         this.config();
         this.registerSpeed();
