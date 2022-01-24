@@ -1,9 +1,10 @@
-package tech.azuriteservices.check.impl.combat;
+package tech.azuriteservices.check.impl.combat.reach;
 
 import io.github.retrooper.packetevents.event.PacketListenerAbstract;
 import io.github.retrooper.packetevents.event.impl.PacketPlayReceiveEvent;
 import io.github.retrooper.packetevents.packettype.PacketType;
 import io.github.retrooper.packetevents.packetwrappers.play.in.useentity.WrappedPacketInUseEntity;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Entity;
 import tech.azuriteservices.data.Alert;
 import tech.azuriteservices.data.PlayerData;
@@ -20,6 +21,8 @@ public class ReachA extends PacketListenerAbstract {
 
         reachXTicks = 3.7;
         reachZTicks = 3.7;
+
+        if (event.getPlayer().getGameMode() != GameMode.SURVIVAL) return;
 
         if (event.getPacketId() == PacketType.Play.Client.USE_ENTITY) {
             WrappedPacketInUseEntity wrappedPacketInUseEntity = new WrappedPacketInUseEntity(event.getNMSPacket());

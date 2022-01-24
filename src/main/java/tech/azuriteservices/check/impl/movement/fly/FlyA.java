@@ -6,7 +6,6 @@ import io.github.retrooper.packetevents.packettype.PacketType;
 import io.github.retrooper.packetevents.packetwrappers.play.in.flying.WrappedPacketInFlying;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import tech.azuriteservices.check.CheckType;
 import tech.azuriteservices.data.Alert;
 import tech.azuriteservices.data.PlayerData;

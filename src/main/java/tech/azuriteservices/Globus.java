@@ -1,8 +1,11 @@
 package tech.azuriteservices;
 
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import io.github.retrooper.packetevents.PacketEvents;
 import io.github.retrooper.packetevents.settings.PacketEventsSettings;
 import io.github.retrooper.packetevents.utils.server.ServerVersion;
+import org.bson.Document;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -15,6 +18,8 @@ import tech.azuriteservices.check.impl.movement.fly.FlyD;
 import tech.azuriteservices.check.impl.movement.speed.SpeedA;
 import tech.azuriteservices.check.manager.CheckManager;
 import tech.azuriteservices.config.ConfigData;
+import tech.azuriteservices.utils.Database;
+import xyz.invisraidinq.rocketapi.api.database.mongo.RocketMongo;
 
 import java.io.File;
 
@@ -44,6 +49,7 @@ public final class Globus extends JavaPlugin {
         checkManager.registerChecks();
         PacketEvents.get().init();
         this.config();
+        this.database();
     }
 
     public static Globus getINSTANCE() {
@@ -63,5 +69,11 @@ public final class Globus extends JavaPlugin {
     private void config(){
 
         new ConfigData(config, configuration, "config.yml");
+    }
+
+    private void database(){
+
+        new Database();
+        System.out.println("Enabled");
     }
 }

@@ -1,1 +1,14 @@
 alert: "&8&l[&6&lGlobus&8&l]&f &6%player% &efailed &6%check_name% &8(&6%type%&8) &eVL&6: &6%vl% &eChances: &6%check_type%"
+
+database: "mongo" # mongo or mysql
+
+mongo:
+  database: "bw4eyre23m6puqp"
+  host: "bw4eyre23m6puqp-mongodb.services.clever-cloud.com"
+  port: 27017 # default mongo port
+  auth: true
+  username: "u3qfur4wj0ciwy2uktxs"
+  password: "qvDXNOf2CjD7luYnuvKg"
+
+
+mysql:

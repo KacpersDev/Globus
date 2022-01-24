@@ -1,7 +1,10 @@
 package tech.azuriteservices.check.manager;
 
 import io.github.retrooper.packetevents.PacketEvents;
-import tech.azuriteservices.check.impl.combat.ReachA;
+import io.github.retrooper.packetevents.packettype.PacketType;
+import tech.azuriteservices.check.impl.combat.reach.ReachA;
+import tech.azuriteservices.check.impl.combat.reach.ReachB;
+import tech.azuriteservices.check.impl.combat.reach.ReachC;
 import tech.azuriteservices.check.impl.movement.fly.FlyA;
 import tech.azuriteservices.check.impl.movement.fly.FlyB;
 import tech.azuriteservices.check.impl.movement.fly.FlyC;
@@ -18,5 +21,7 @@ public class CheckManager {
         PacketEvents.get().registerListener(new FlyD());
         PacketEvents.get().registerListener(new SpeedA());
         PacketEvents.get().registerListener(new ReachA());
+        PacketEvents.get().registerListener(new ReachB());
+        PacketEvents.get().registerListener(new ReachC());
     }
 }
