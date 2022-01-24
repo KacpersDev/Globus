@@ -6,13 +6,15 @@ import io.github.retrooper.packetevents.packettype.PacketType;
 import io.github.retrooper.packetevents.packetwrappers.play.in.flying.WrappedPacketInFlying;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import tech.azuriteservices.check.CheckType;
 import tech.azuriteservices.data.Alert;
 import tech.azuriteservices.data.PlayerData;
 
 public class FlyC extends PacketListenerAbstract {
 
     private final PlayerData data = new PlayerData();
-
+    private final CheckType checkType = new CheckType();
     private Location from, to;
     private double finalDeltaZ, minAirTicks, maxAirTicks, limitAirTicks;
 
@@ -25,6 +27,8 @@ public class FlyC extends PacketListenerAbstract {
         || event.getPacketId() == PacketType.Play.Client.LOOK) {
 
             WrappedPacketInFlying wrappedPacketInFlying = new WrappedPacketInFlying(event.getNMSPacket());
+
+            Location location = event.getPlayer().getLocation();
 
             if ((data.isPlayerOnGround(event.getPlayer()))) return;
             if (data.isPlayerInLiquid(event.getPlayer())) return;
@@ -42,7 +46,6 @@ public class FlyC extends PacketListenerAbstract {
 
             from = to.clone();
 
-
             if (wrappedPacketInFlying.isPosition()) {
                 to.setX(wrappedPacketInFlying.getX());
                 to.setY(wrappedPacketInFlying.getY());
@@ -51,7 +54,7 @@ public class FlyC extends PacketListenerAbstract {
 
             finalDeltaZ = (to.getZ() - from.getZ());
             if ((finalDeltaZ) > minAirTicks && (finalDeltaZ) > maxAirTicks && (finalDeltaZ) < limitAirTicks) {
-                new Alert(event.getPlayer(), "FLY", data.addVl(), "C");
+                new Alert(event.getPlayer(), "FLY", data.addVl(), "C", checkType.possible());
             }
         }
     }

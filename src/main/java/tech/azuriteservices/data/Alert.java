@@ -7,7 +7,7 @@ import tech.azuriteservices.utils.CC;
 
 public class Alert {
 
-    public Alert(Player player, String checkName, int vl, String type){
+    public Alert(Player player, String checkName, int vl, String type, String checkType){
 
         for (Player players : Bukkit.getOnlinePlayers()) {
             if (!players.hasPermission("globus.command.alerts")) return;
@@ -15,7 +15,8 @@ public class Alert {
                     .replace("%player%", player.getName())
                     .replace("%check_name%", checkName)
                     .replace("%vl%", String.valueOf(vl))
-                    .replace("%type%", type)));
+                    .replace("%type%", type)
+                    .replace("%check_type%", checkType)));
         }
     }
 }

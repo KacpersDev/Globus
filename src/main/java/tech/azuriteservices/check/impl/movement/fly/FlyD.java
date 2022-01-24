@@ -6,17 +6,22 @@ import io.github.retrooper.packetevents.packettype.PacketType;
 import io.github.retrooper.packetevents.packetwrappers.play.in.flying.WrappedPacketInFlying;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import tech.azuriteservices.check.CheckType;
 import tech.azuriteservices.data.Alert;
 import tech.azuriteservices.data.PlayerData;
 
 public class FlyD extends PacketListenerAbstract {
 
+    private final CheckType checkType = new CheckType();
     private final PlayerData data = new PlayerData();
     private Location from, to;
     private double minAirTicks, limitAirTicks, finalDeltaZ;
 
     @Override
     public void onPacketPlayReceive(PacketPlayReceiveEvent event){
+
+        Location location = event.getPlayer().getLocation();
 
         if (event.getPacketId() == PacketType.Play.Client.FLYING
         || event.getPacketId() == PacketType.Play.Client.LOOK
@@ -49,7 +54,7 @@ public class FlyD extends PacketListenerAbstract {
             finalDeltaZ = (to.getZ() - from.getZ());
             if (data.isNearGround(to)) return;
             if ((finalDeltaZ) < minAirTicks && (finalDeltaZ) > limitAirTicks) {
-                new Alert(event.getPlayer(), "FLY", data.addVl(), "D");
+                new Alert(event.getPlayer(), "FLY", data.addVl(), "D", checkType.possible());
             }
         }
     }

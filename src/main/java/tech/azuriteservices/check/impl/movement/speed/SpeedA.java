@@ -5,8 +5,10 @@ import io.github.retrooper.packetevents.event.impl.PacketPlayReceiveEvent;
 import io.github.retrooper.packetevents.packettype.PacketType;
 import io.github.retrooper.packetevents.packetwrappers.play.in.flying.WrappedPacketInFlying;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import tech.azuriteservices.check.CheckType;
 import tech.azuriteservices.data.Alert;
 import tech.azuriteservices.data.PlayerData;
 
@@ -14,6 +16,7 @@ import java.util.Collection;
 
 public class SpeedA extends PacketListenerAbstract {
 
+    private final CheckType checkType = new CheckType();
     private final PlayerData data = new PlayerData();
     private Location from, to;
     private double deltaX, minDefaultSpeedTicks, maxDefaultSpeedTicks, jumpSpeedTicks, maxVelocityTicks, minVelocityTicks, finalVelocityTicks
@@ -21,6 +24,8 @@ public class SpeedA extends PacketListenerAbstract {
 
     @Override
     public void onPacketPlayReceive(PacketPlayReceiveEvent event){
+
+        Location location = event.getPlayer().getLocation();
 
         if (event.getPacketId() == PacketType.Play.Client.FLYING
         || event.getPacketId() == PacketType.Play.Client.POSITION_LOOK
@@ -46,8 +51,10 @@ public class SpeedA extends PacketListenerAbstract {
             // -0.373453453462 < ^
             if (event.getPlayer().getVelocity().getY() > maxVelocityTicks && (event.getPlayer().getVelocity().getY() < minVelocityTicks)) return;
             if (event.getPlayer().getVelocity().getY() < velo || event.getPlayer().getVelocity().getY() > velo) {
-                return;
+                new Alert(event.getPlayer(), "SPEED", data.addVl(), "A", checkType.falsely());
             }
+
+            location.setY(location.getY() - 1);
 
             if (wrappedPacketInFlying.isOnGround()) {
                 to.setX(wrappedPacketInFlying.getX());
@@ -57,8 +64,6 @@ public class SpeedA extends PacketListenerAbstract {
 
             deltaX = ((to.getX()) - from.getX());
             if (deltaX == to.getX()) return;
-            event.getPlayer().sendMessage("DeltaX " + deltaX);
-            event.getPlayer().sendMessage("Velo " + event.getPlayer().getVelocity().getY());
 
             if (event.getPlayer().hasPotionEffect(PotionEffectType.SPEED)) {
                 Collection<PotionEffect> potionEffects = event.getPlayer().getActivePotionEffects();
@@ -69,7 +74,7 @@ public class SpeedA extends PacketListenerAbstract {
                     }
                 }
             } else if ((deltaX) > maxDefaultSpeedTicks) {
-                new Alert(event.getPlayer(), "SPEED", data.addVl(), "A");
+                new Alert(event.getPlayer(), "SPEED", data.addVl(), "A", checkType.possible());
             }
         }
     }

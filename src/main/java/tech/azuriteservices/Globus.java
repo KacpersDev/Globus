@@ -13,12 +13,14 @@ import tech.azuriteservices.check.impl.movement.fly.FlyB;
 import tech.azuriteservices.check.impl.movement.fly.FlyC;
 import tech.azuriteservices.check.impl.movement.fly.FlyD;
 import tech.azuriteservices.check.impl.movement.speed.SpeedA;
+import tech.azuriteservices.check.manager.CheckManager;
 import tech.azuriteservices.config.ConfigData;
 
 import java.io.File;
 
 public final class Globus extends JavaPlugin {
 
+    private final CheckManager checkManager = new CheckManager();
     private static Globus INSTANCE;
     public File config = new File(getDataFolder(), "config.yml");
     public FileConfiguration configuration = new YamlConfiguration();
@@ -39,14 +41,9 @@ public final class Globus extends JavaPlugin {
     public void onEnable() {
         INSTANCE = this;
         Bukkit.getConsoleSender().sendMessage("Globus has been enabled...");
-        PacketEvents.get().registerListener(new FlyA());
-        PacketEvents.get().registerListener(new FlyB());
-        PacketEvents.get().registerListener(new FlyC());
-        PacketEvents.get().registerListener(new FlyD());
-        PacketEvents.get().registerListener(new SpeedA());
+        checkManager.registerChecks();
         PacketEvents.get().init();
         this.config();
-        this.registerSpeed();
     }
 
     public static Globus getINSTANCE() {
@@ -66,10 +63,5 @@ public final class Globus extends JavaPlugin {
     private void config(){
 
         new ConfigData(config, configuration, "config.yml");
-    }
-
-    private void registerSpeed(){
-
-        PluginManager manager = Bukkit.getPluginManager();
     }
 }

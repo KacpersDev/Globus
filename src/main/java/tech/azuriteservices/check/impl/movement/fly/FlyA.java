@@ -6,17 +6,22 @@ import io.github.retrooper.packetevents.packettype.PacketType;
 import io.github.retrooper.packetevents.packetwrappers.play.in.flying.WrappedPacketInFlying;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.Material;
+import tech.azuriteservices.check.CheckType;
 import tech.azuriteservices.data.Alert;
 import tech.azuriteservices.data.PlayerData;
 
 public class FlyA extends PacketListenerAbstract {
 
+    private final CheckType checkType = new CheckType();
     private final PlayerData data = new PlayerData();
     private Location from, to;
     private double lastDeltaY, deltaY, airTicks, jumpTicks, velocityTicks;
 
     @Override
     public void onPacketPlayReceive(PacketPlayReceiveEvent event) {
+
+        Location location = event.getPlayer().getLocation();
 
         if (data.isPlayerOnGround(event.getPlayer())) return;
         if (event.getPacketId() == PacketType.Play.Client.FLYING
@@ -53,7 +58,7 @@ public class FlyA extends PacketListenerAbstract {
             deltaY = lastDeltaY;
             if (data.isNearGround(to)) return;
             if ((lastDeltaY) > airTicks && (lastDeltaY) > jumpTicks) {
-                new Alert(event.getPlayer(), "FLY", data.addVl(), "A");
+                new Alert(event.getPlayer(), "FLY", data.addVl(), "A", checkType.possible());
             }
         }
     }
